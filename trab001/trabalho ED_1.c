@@ -5,16 +5,43 @@ typedef struct arvore{
     struct arvore *dir;
 }arvore;
 int menu(){
-    int op;// variavel que recebe as opções
-    printf("menu com opções");//mudar para testo correto depois
-    fscanf("%d",&op);//op recebe opção digitada
-    if(op<1 || op>6) {//opções numeradas de 1 a 6. fora desse intervalo é invalido
-        printf("opção invalida");
-        return 0;
+    int opcao;
+    char nomeArq[20];
+    arvore *a = NULL;
+    FILE *arq = NULL;
+    printf("1- Ler uma árvore de um arquivo fornecido\n");
+    printf("2- Imprimir a árvore\n");
+    printf("3- Verificar se um elemento x existe na árvore\n");
+    printf("4- Contar o número de elemenetos na árvore\n");
+    printf("5- Imprimir os nós folhas da árvore\n");
+    printf("6- Sair\n");
+    scanf("%d",&opcao);
+
+    switch(opcao){
+        case 1:
+            printf("Digite o nome do arquivo: ");
+            scanf("%s",nomeArq);
+            arq = fopen(nomeArq,"rt");
+            a = LerArvore(&arq);
+            fclose(arq);
+            break;
+        case 2:
+            ImprimirArvore(a);
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        case 5:
+
+            break;
+        case 6:
+            return;
     }
-    else{
-        //IF com opções
-    }    
+
+    menu();
 }
 arvore *ler(FILE *arq){
     char c;
@@ -35,7 +62,15 @@ arvore *ler(FILE *arq){
     }
 }
 
-void imprimirPre(arvore *a){}
+void imprimirPre(arvore *a){//pré-ordem 
+    if(a != NULL){
+
+        ImprimirArvore(a->esq);
+        printf("%d ",a->info);
+        ImprimirArvore(a->dir);
+    }
+
+}
 void imprimirEm(arvore *a){}
 void imprimirPos(arvore *a){}
 void encontra(arvore *a,int x){}
@@ -55,6 +90,14 @@ arvore *destroi(arvore *a){//revisar
     }
 }
 int main(){
-
-    return 0;
+//    FILE *arq = NULL;
+//    char nomeArq[200];
+//    scanf("%s",nomeArq);
+//    arq = fopen(nomeArq,"rt");
+//    arvore *a = NULL;
+//    a = LerArvore(arq);
+//    ImprimirArvore(a);
+//    fclose(arq);
+    menu();
+return 0;
 }
