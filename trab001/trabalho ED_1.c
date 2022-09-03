@@ -63,8 +63,7 @@ int VerificaX(arvore *a, int x){//verifica se um elemento X está na arvore
         return (VerificaX(a->esq,x) || VerificaX(a->dir,x));//retorna para a raiz a resposta da chamada dos nós
     }
 }
-void contarElementos(arvore *a){}
-void imprimirFolhas(arvore *a){}
+
 arvore *destroi(arvore *a){//revisar
     
     if(a->esq !=NULL){//se tem caminho pela esquerda 
@@ -78,6 +77,28 @@ arvore *destroi(arvore *a){//revisar
         return NULL;
     }
 }
+
+int contarElementos(arvore *a){
+    if(a==NULL){
+        return 0;// igual a null retorna zero como condição de parada
+    }else{
+        return 1 + contarElementos(a->esq)+contarElementos(a->dir);//se diferente de null retorna 1+ chamadas da esq + chamadas da direita
+    }
+    
+    
+}
+void imprimirFolhas(arvore *a){
+    if(a!=NULL){
+        if(a->esq ==NULL && a->dir == NULL){
+            printf(a->info);
+        }else{
+            imprimirFolhas(a->esq);
+            imprimirFolhas(a->dir);
+        }
+    }
+}
+
+
 
 void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argumento por todas as funções do menu
 //antes não funcionava pq a declaração do ponteiro era feita no proprio menu e sempre que ele era chamado recursivamente o valor era alterado pra NULL
@@ -128,12 +149,15 @@ void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argu
             printf("%d\n",VerificaX(raiz,x));
             break;
         case 4:
-
+            printf("\n %d",contarElementos(raiz));
             break;
         case 5:
-
+            printf("\n");
+            imprimirFolhas(raiz);
+            printf("\n");
             break;
         case 9:
+            destroi(raiz);
             return;//encerramento do programa caso o usuario digite 9
     }
     menu(raiz);
