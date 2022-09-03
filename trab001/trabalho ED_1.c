@@ -149,7 +149,7 @@ void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argu
             printf("%d\n",VerificaX(raiz,x));
             break;
         case 4:
-            printf("\n %d",contarElementos(raiz));
+            printf("\n %d\n",contarElementos(raiz));
             break;
         case 5:
             printf("\n");
