@@ -89,8 +89,8 @@ int contarElementos(arvore *a){
 }
 void imprimirFolhas(arvore *a){
     if(a!=NULL){
-        if(a->esq ==NULL && a->dir == NULL){
-            printf(a->info);
+        if(a->esq == NULL && a->dir == NULL){            
+           printf("%d ",a->info);
         }else{
             imprimirFolhas(a->esq);
             imprimirFolhas(a->dir);
