@@ -64,9 +64,9 @@ int VerificaX(arvore *a, int x){//verifica se um elemento X está na arvore
     }
 }
 
-arvore *destroi(arvore *a){//revisar
-    
-    if(a->esq !=NULL){//se tem caminho pela esquerda 
+arvore *destroi(arvore *a){
+
+    if(a->esq !=NULL){//se tem caminho pela esquerda
         a = destroi(a->esq);
     }
     if(a->esq !=NULL){//se tem caminho pela direita
@@ -82,14 +82,14 @@ int contarElementos(arvore *a){
     if(a==NULL){
         return 0;// igual a null retorna zero como condição de parada
     }else{
-        return 1 + contarElementos(a->esq)+contarElementos(a->dir);//se diferente de null retorna 1+ chamadas da esq + chamadas da direita
+        return 1 +contarElementos(a->dir)+contarElementos(a->esq);//se diferente de null retorna 1+ chamadas da esq + chamadas da direita
     }
-    
-    
+
+
 }
 void imprimirFolhas(arvore *a){
     if(a!=NULL){
-        if(a->esq == NULL && a->dir == NULL){            
+        if(a->esq == NULL && a->dir == NULL){
            printf("%d ",a->info);
         }else{
             imprimirFolhas(a->esq);
@@ -114,6 +114,9 @@ void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argu
     scanf("%d",&opcao);
     switch(opcao){
         case 1:
+            if(raiz!=NULL){
+                destroi(raiz);
+            }
             printf("Digite o nome do arquivo: ");
             scanf("%s",nomeArq);
             arq = fopen(nomeArq,"rt");
@@ -165,5 +168,6 @@ void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argu
 int main(){
     arvore *raiz = NULL;//criacao do primeiro nó da arvore que será passado por todas as funções
     menu(raiz);//chamada da função menu implementada de forma recursiva
+
     return 0;
 }
