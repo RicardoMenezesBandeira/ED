@@ -3,7 +3,7 @@
 
 typedef struct arvore{
     int info;
-    struct arovre *esq;
+    struct arvore *esq;
     struct arvore *dir;
 }arvore;
 
@@ -64,15 +64,15 @@ int VerificaX(arvore *a, int x){//verifica se um elemento X está na arvore
     }
 }
 
-arvore *destroi(arvore *a){
+arvore* destroi(arvore *a){
 
-    if(a->esq !=NULL){//se tem caminho pela esquerda
-        a = destroi(a->esq);
+    if(a->esq != NULL){//se tem caminho pela esquerda
+        a->esq = destroi(a->esq);
     }
-    if(a->esq !=NULL){//se tem caminho pela direita
-        a = destroi(a->dir);
+    if(a->dir != NULL){//se tem caminho pela direita
+        a->dir = destroi(a->dir);
     }
-    if(a->esq ==NULL && a->dir ==NULL){//se é uma folha destroi e retorna
+    if(a->esq == NULL && a->dir == NULL){//se é uma folha destroi e retorna
         free(a);
         return NULL;
     }
@@ -160,7 +160,9 @@ void menu(arvore *raiz){//o ponteiro raiz é criado na main e é usado como argu
             printf("\n");
             break;
         case 9:
-            destroi(raiz);
+            if(raiz != NULL){
+                destroi(raiz);
+            }
             return;//encerramento do programa caso o usuario digite 9
     }
     menu(raiz);
