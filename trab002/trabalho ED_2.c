@@ -12,7 +12,50 @@ typedef struct arvore{
     struct arvore *esq;
     struct arvore *dir;
 }arvore;
-
+int altura(arvore *a ,int h){//função auxiliar
+    int h_esq, h_dir;
+    if (a==NULL){return 0;}//folha nao conta pra altura
+    h_esq = altura (a->esq,h); //verifica a altura pra esquerda
+    h_dir = altura (a->dir,h); // verifica a altura pra direita
+    if(h_esq >h_dir){  //retorna a maior +1
+        return h_esq +1;
+    }else{
+        return h_dir +1;
+    }
+    
+    
+}
+void printaCamada(arvore *a, int camadaDesejada, int CamadaAtual){//apenas printa
+	if(a!=NULL){//se for igual a null apenas sai da função		
+		if(CamadaAtual == camadaDesejada){//se esta na camada desejada printa e retorna
+			print(a->info);
+		}
+		if(CamadaAtual<camadaDesejada){//se ainda nao chegou a camada desejada desce mais
+			printaCamada(a->esq,camadaDesejada,CamadaAtual+1);
+			printaCamada(a->dir,camadaDesejada,CamadaAtual+1);
+		}
+	}
+	
+}
+void ImprimirEmLarg(arvore *a){
+    int alt = altura(a,0); //arvore e altura inicial
+    for (int i =alt;i>0; i++){
+        printaCamada(a,i,1);
+    }
+}
+void CamadaDoItem(arvore *a, int x, int camada){//camada deve ser iniciada com 1
+    if(a !=NULL) {
+        if(a->info == x){
+            printf(camada);
+        }
+        if(a->info < x){
+            CamadaDoItem(a->dir,x,camada+1);//se x maior vai pra direita
+        }
+        else{
+            CamadaDoItem(a->esq,x,camada+1);//se x menor vai pra esquerdar
+        }
+    }
+}
 arvore* LerArvore(FILE *arq,arvore *a){//codigo do Dalessandro pra criar a arvore a partir da notação ensinada em aula
     char c;
     int num;
@@ -57,6 +100,7 @@ void ImprimirPos(arvore *a){//pós-ordem
         printf("%d ",a->info);
     }
 }
+
 
 int VerificaX(arvore *a, int x){//verifica se um elemento X está na arvore
     if(a == NULL){// se entrar nesse if já passou por todos os ramos
